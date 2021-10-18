@@ -8,15 +8,28 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		List<Object> myObjs = new ArrayList<Object>();
-		myObjs.add("Maria");
-		myObjs.add("Alex");
+		List<Integer> myInts = Arrays.asList(1, 2, 3, 4);
+		List<Double> myDoubles = Arrays.asList(3.14, 6.28);
+		List<Object> myObjs = new ArrayList<>();
 
-		List<? super Number> myNums = myObjs;
+		copy(myInts, myObjs);
+		printList(myObjs);
+		copy(myDoubles, myObjs);
+		printList(myObjs);
+	}
 
-		myNums.add(10);
-		myNums.add(3.14);
+	// Add a more specific list to a more generic one
+	public static void copy(List<? extends Number> source, List<? super Number> destiny) {
+		for (Number number : source) {
+			destiny.add(number);
+		}
+	}
 
-		Number x = myNums.get(0); // compilation error
+	// Print list
+	public static void printList(List<?> list) {
+		for (Object obj : list) {
+			System.out.print(obj + " ");
+		}
+		System.out.println();
 	}
 }
